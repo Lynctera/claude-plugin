@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "lynctera": {
-      "type": "http",
-      "url": "https://app.lynctera.com/api/mcp-b2c"
-    }
-  }
-}

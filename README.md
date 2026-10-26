@@ -1,16 +1,19 @@
 # Lynctera
 
 Work with your Lynctera cases from a conversation with Claude. Lynctera runs structured work for professional firms as
-cases: reviews of documents, research briefs, and matters kept as records. This plugin connects Claude to your
-Lynctera workspace and teaches it how cases and email work in Lynctera, so it opens the right kind of case, follows
-its run, drafts replies in your voice for you to send, and sends you to the right page in Lynctera for the steps that
-happen there.
+cases: reviews of documents, research briefs, and matters kept as records. This plugin teaches Claude how cases and
+email work in Lynctera, through the Lynctera connector, so it opens the right kind of case, follows its run, drafts
+replies in your voice for you to send, and sends you to the right page in Lynctera for the steps that happen there.
+
+## What it needs
+
+**The Lynctera connector**, at `https://app.lynctera.com/api/mcp-b2c`, added to your Claude account first. The
+plugin does not add it for you: Lynctera's sign-in needs the client ID Lynctera gives you. You sign in with your
+Lynctera account, and the connector acts only as you, in the workspaces you already belong to, and only within the
+tool families your workspace's administrator has turned on.
 
 ## What it contains
 
-- **The Lynctera connector**, at `https://app.lynctera.com/api/mcp-b2c`. You sign in with your Lynctera account the
-  first time Claude uses it. It acts only as you, in the workspaces you already belong to, and only within the tool
-  families your workspace's administrator has turned on.
 - **Four skills** that teach Claude how Lynctera works:
   - `lynctera-cases`: choosing a kind of case, opening it, getting documents in, starting and following its run,
     deciding gates, reading what it produced, and keeping records current.
@@ -23,9 +26,15 @@ happen there.
 
 ## Use it
 
-You need a Lynctera account. Add the plugin from the Claude directory, or under Customize › Plugins › Add › Add
-marketplace with `Lynctera/claude-plugin`. Connect the Lynctera connector from the plugin's Connectors tab, then ask
-Claude about your work, for example:
+You need a Lynctera account.
+
+1. **Add the Lynctera connector first.** In Lynctera, open **Settings › Connected apps**: it shows the connector's
+   address and the client ID to paste under **Advanced settings** when you add it in Claude under **Customize ›
+   Connectors**. Sign in when Claude asks.
+2. **Add the plugin** from the Claude directory, or under **Customize › Plugins › Add › Add marketplace** with
+   `Lynctera/claude-plugin`.
+
+Then ask Claude about your work, for example:
 
 - "What is waiting for me in Lynctera?"
 - "Open a review of the facility agreement for Acme and tell me what documents it needs."
