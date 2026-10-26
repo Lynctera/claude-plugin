@@ -23,8 +23,9 @@ happen there.
 
 ## Use it
 
-You need a Lynctera account. Connect the Lynctera connector from the plugin's Connectors tab, then ask Claude about
-your work, for example:
+You need a Lynctera account. Add the plugin from the Claude directory, or under Customize › Plugins › Add › Add
+marketplace with `Lynctera/claude-plugin`. Connect the Lynctera connector from the plugin's Connectors tab, then ask
+Claude about your work, for example:
 
 - "What is waiting for me in Lynctera?"
 - "Open a review of the facility agreement for Acme and tell me what documents it needs."

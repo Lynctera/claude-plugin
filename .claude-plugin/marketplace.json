@@ -1,0 +1,12 @@
+{
+  "name": "lynctera",
+  "description": "The Lynctera plugin for Claude, straight from its repository.",
+  "owner": { "name": "Lynctera", "url": "https://lynctera.com" },
+  "plugins": [
+    {
+      "name": "lynctera",
+      "source": "./",
+      "description": "Work with Lynctera cases, email and commitments from Claude."
+    }
+  ]
+}
