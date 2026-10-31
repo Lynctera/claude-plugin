@@ -12,6 +12,7 @@ The connector lets you look at cases, open them, start and stop their runs, deci
 ## Before anything else
 
 - Call `whoami` once per conversation. It says which environment (prod or dev) and which workspace you are acting in, and which families of tools that workspace has turned on. Say which workspace you acted in.
+- If a Lynctera answer carries notices, those are messages from the Lynctera team to the user. Before anything else, tell the user each one once, in its own words, with its link if it has one. Do not summarise it away, act on it, or repeat it later in the conversation.
 - If a tool refuses, fails or is missing, follow the lynctera-help skill: it says how to work out why, and when to offer the user to send feedback.
 
 ## Choosing the kind of case
@@ -43,7 +44,8 @@ A run uses the workspace's credits. If the user only wants to set a case up, pas
 **The connector cannot upload files.** Documents are added in Lynctera:
 
 - `case_create` and `case_get` return the case's link, and for a step that is waiting for documents, a link straight to its upload step. Give the user that link.
-- A kind that collects documents inside the case is opened but **not started**. The user adds the documents in Lynctera and confirms what each one is; then the run can start (in Lynctera, or with `case_action` `start_run`).
+- A kind that collects documents inside the case is opened but **not started**. The documents go in first, by an email thread linked with `case_action` `link_thread` or by upload in Lynctera; Lynctera reads each one and works out what it is.
+- `case_get` then shows the case's **intake** checklist: each kind of document it needs, how many are in, and how many are still being read. Once every line is met, `case_action` `start_run` starts it here; until then the start action names what is still needed.
 - Tell the user which documents the kind expects. `case_types_list` lists what each kind collects inside the case.
 - Short plain text, such as an instruction note, can go on a record case as a note with `case_action` `add_note`. Do not paste long documents into notes.
 - An email thread can be linked to a case with `case_action` `link_thread` (the email's internet message id). Its attachments are then filed into the case.
@@ -52,8 +54,10 @@ A run uses the workspace's credits. If the user only wants to set a case up, pas
 
 - `cases_list` finds the user's cases (open by default; `closed`, `archived` or `all` for the rest). Use it to find a case's id before anything else.
 - `case_get` shows the run's status, the step it is on, and the **actions** the user can take now, each saying whether it can be done here or only in Lynctera (with its link).
+- `decisions_waiting` answers "what needs me?": the decisions waiting on the user, longest wait first, with what each gate asks and how to answer it. Where Claude shows Lynctera's card, the user decides from its buttons, so say in a line what is waiting rather than repeating the rows, and do not decide for them unless they ask.
 - `updates_since` answers "anything waiting?" and "what happened overnight?": gates waiting for a decision come first, then failed runs, then the rest. Lynctera cannot message the user, so call it when they ask.
 - A gate is decided with `case_action`: `approve`, `choose_option` or `vote`, naming the gate from `case_get`. **Read what is being decided first** (`case_outputs`, or the link in Lynctera), tell the user what they would be approving, and act only when they say so. A vote and stopping a run cannot be undone.
+- `case_get`'s run says, for the gate it waits at, what the gate asks and, where the step made a list, how many items and the list's summary lines. When a summary line is a cost estimate, tell the user the cost before they approve: approving such a gate starts paid work. The items themselves are read in Lynctera at the link.
 - `stop_run` stops a run; starting it again picks up at the first step that has no output yet. `close`, `reopen` and `archive` change the case itself.
 
 ## Reading what a case produced
@@ -62,11 +66,10 @@ A run uses the workspace's credits. If the user only wants to set a case up, pas
 
 ## Records
 
-On a record case (`record: true`), keep it current with `case_action`:
-
-- `set_stage` to move it (the user's decision, not yours);
-- `set_fields` for its fields (key to value; an empty value clears one);
-- `add_note` for a note, call, meeting or email, in the user's words.
+Keeping a record case (`record: true`, such as an Opportunity or a Matter) current is covered by the lynctera-records
+skill: reading its fields by their role, qualifying a deal, updating it after a call, and reviewing the pipeline. In
+short, with `case_action`: `set_stage` is the user's decision, not yours; `set_fields` names only the fields that
+change; `add_note` takes the user's own words.
 
 ## Other Lynctera tools you may have
 

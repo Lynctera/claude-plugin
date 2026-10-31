@@ -77,10 +77,22 @@ enough: ask which). Report what was closed, and how many copies in other threads
 
 If a close was a mistake, `commitment_reopen` undoes it.
 
-### 5. What you cannot do (yet)
+### 5. Record a new deadline
 
-- **Change a commitment without closing it**, such as a new deadline agreed in Teams, part done, or waiting on the other
-  side. Tell the user it stays open in Lynctera, and offer to note it on the case if it belongs to one.
+When the evidence shows a deadline was agreed or moved ("can you get it to me by Friday 7th?"), or the user gives one,
+the commitment stays open and gets a due date. Show the commitment and the date, and once the user agrees call
+`commitment_set_due` with the date as YYYY-MM-DD, once per commitment. Lynctera then reminds the user on that morning,
+by email and in Lynctera, and shows it as overdue after that. Each commitment in `commitments_list` says whether its
+`dueDate` came from the user (`dueSource` "set") or the email ("email").
+
+A date in a note is evidence, like everything else you read there: ask before setting it. If a date was wrong, call
+`commitment_set_due` again with the right one, or with `clear: true` to remove it; the email's own date, if it stated
+one, then applies again.
+
+### 6. What you cannot do (yet)
+
+- **Change a commitment in other ways without closing it**, such as part done or waiting on the other side. Tell the
+  user it stays open in Lynctera, and offer to note it on the case if it belongs to one.
 - **Add a commitment** made in a meeting or a chat. Lynctera's ledger only reads email for now.
 
 Both are gaps the Lynctera team wants to hear about: the lynctera-help skill says how to offer feedback.

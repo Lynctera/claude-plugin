@@ -1,7 +1,7 @@
 {
   "name": "lynctera",
   "displayName": "Lynctera",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Work with Lynctera cases from Claude: choose the right kind of case, open it, follow its run, decide its gates, keep records up to date, and send feedback to the Lynctera team.",
   "author": { "name": "Lynctera", "url": "https://lynctera.com" },
   "homepage": "https://lynctera.com",
