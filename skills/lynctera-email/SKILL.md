@@ -44,7 +44,8 @@ lynctera-commitments skill.
 
 To put an email thread on a case or matter, use `case_action` `link_thread` on that case with the email's internet
 message id. The thread's emails then show on the case's timeline, and its attachments are filed into the case's
-documents. Use `cases_list` to find the case first. The lynctera-cases skill covers cases in full.
+documents. Where the workspace has turned on thread notes, Lynctera also notes each later exchange on the timeline
+itself, so the user need not log those emails by hand. Use `cases_list` to find the case first. The lynctera-cases skill covers cases in full.
 
 ## Tracked links in a follow-up
 
